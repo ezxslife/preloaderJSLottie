@@ -1,6 +1,6 @@
 // Create an overlay container
 const overlay = document.createElement('div');
-overlay.id = 'loader';
+overlay.id = 'customLottieLoader';
 overlay.style.cssText = `
     display: flex;
     justify-content: center;
@@ -30,19 +30,25 @@ lottieContainer.style.cssText = `
 document.body.appendChild(overlay);
 document.body.appendChild(lottieContainer);
 
-// Function to hide the overlay and display the Lottie animation
-function hideOverlay() {
-    overlay.style.display = 'none'; // Hide the overlay
+// Function to hide Flutter’s loader, then show your custom Lottie
+function hideFlutterLoaderAndShowLottie() {
+    // 1. Attempt to hide any existing Flutter loader
+    const flutterLoader = document.getElementById('loader'); // or whatever ID Flutter uses
+    if (flutterLoader) {
+        flutterLoader.style.display = 'none'; 
+    }
+
+    // 2. Now start up your Lottie animation
     lottie.loadAnimation({
-        container: lottieContainer, // the container element
-        renderer: 'svg', // Use SVG rendering
-        loop: true, // Enable looping
-        autoplay: true, // Enable autoplay
-        path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json', // Replace with your Lottie JSON URL
+        container: lottieContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json',
     });
 }
 
 // Wait for the DOM to fully load
 document.addEventListener('DOMContentLoaded', () => {
-    hideOverlay(); // Initialize the Lottie animation after DOM is loaded
+    hideFlutterLoaderAndShowLottie();
 });
