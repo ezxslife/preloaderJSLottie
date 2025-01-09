@@ -38,7 +38,7 @@ function hideOverlay() {
         renderer: 'svg', // ou 'canvas' se preferir
         loop: true,
         autoplay: true,
-        path: 'https://github.com/ezxslife/preloaderJSLottie/blob/main/Artboard%201.json',
+        path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json',
     });
 }
 
