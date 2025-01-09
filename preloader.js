@@ -1,3 +1,4 @@
+// Create an overlay container
 const overlay = document.createElement('div');
 overlay.id = 'loader';
 overlay.style.cssText = `
@@ -13,39 +14,35 @@ overlay.style.cssText = `
     z-index: 999;
 `;
 
+// Create a container for the Lottie animation
 const lottieContainer = document.createElement('div');
 lottieContainer.id = 'lottieContainer';
 lottieContainer.style.cssText = `
     max-width: 100%;
     max-height: 100%;
-    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 `;
-lottieContainer.style.display = 'none';
 
+// Append containers to the document body
 document.body.appendChild(overlay);
 document.body.appendChild(lottieContainer);
 
+// Function to hide the overlay and display the Lottie animation
 function hideOverlay() {
-    overlay.style.display = 'none';
-    lottieContainer.style.display = 'block';
-    // Substitua pela URL direta do seu arquivo JSON do Lottie.
+    overlay.style.display = 'none'; // Hide the overlay
     lottie.loadAnimation({
-  container: lottieContainer, // the container element
-  renderer: 'svg', // or 'canvas', depending on preference
-  loop: true,
-  autoplay: true,
-  path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json', // Use the JSON URL here
-});
-
+        container: lottieContainer, // the container element
+        renderer: 'svg', // Use SVG rendering
+        loop: true, // Enable looping
+        autoplay: true, // Enable autoplay
+        path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json', // Replace with your Lottie JSON URL
+    });
 }
 
-
+// Wait for the DOM to fully load
 document.addEventListener('DOMContentLoaded', () => {
-    hideOverlay(); // Teste sem o setTimeout
+    hideOverlay(); // Initialize the Lottie animation after DOM is loaded
 });
-
-window.addEventListener('load');
