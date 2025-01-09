@@ -34,13 +34,15 @@ function hideOverlay() {
     lottieContainer.style.display = 'block';
     // Substitua pela URL direta do seu arquivo JSON do Lottie.
     lottie.loadAnimation({
-        container: lottieContainer,
-        renderer: 'svg', // ou 'canvas' se preferir
-        loop: true,
-        autoplay: true,
-        path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json',
-    });
+  container: lottieContainer, // the container element
+  renderer: 'svg', // or 'canvas', depending on preference
+  loop: true,
+  autoplay: true,
+  path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json', // Use the JSON URL here
+});
+
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
     hideOverlay(); // Teste sem o setTimeout
