@@ -1,3 +1,5 @@
+// preloader.js
+
 // Ensure Lottie is loaded
 if (typeof lottie === 'undefined') {
     console.error('Lottie library is not loaded.');
@@ -17,19 +19,16 @@ if (typeof lottie === 'undefined') {
         width: 100%;
         height: 100%;
         background-color: rgba(255, 255, 255, 0.7);
-        z-index: 999;
+        z-index: 9999; /* Ensure it's on top */
     `;
 
     // Create a container for the Lottie animation
     const lottieContainer = document.createElement('div');
     lottieContainer.id = 'lottieContainer';
     lottieContainer.style.cssText = `
-        max-width: 300px;
-        max-height: 300px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        width: 200px; /* Adjust size as needed */
+        height: 200px;
+        position: relative;
     `;
 
     // Append containers to the document body
@@ -50,7 +49,7 @@ if (typeof lottie === 'undefined') {
         }
 
         // Initialize the Lottie animation
-        lottie.loadAnimation({
+        const animation = lottie.loadAnimation({
             container: lottieContainer, // the container element
             renderer: 'svg', // Use SVG rendering
             loop: true, // Enable looping
@@ -58,7 +57,12 @@ if (typeof lottie === 'undefined') {
             path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json', // Your Lottie JSON URL
         });
 
-        console.log('Lottie animation initialized.');
+        // Optionally, hide the overlay once the animation is loaded
+        animation.addEventListener('DOMLoaded', () => {
+            console.log('Lottie animation loaded.');
+            // You can hide the overlay here if desired
+            // overlay.style.display = 'none';
+        });
     }
 
     // Wait for the DOM to fully load before initializing
