@@ -1,64 +1,56 @@
 // preloader.js
-
-// Ensure Lottie is loaded
 if (typeof lottie === 'undefined') {
-    console.error('Lottie library is not loaded.');
+  console.error('Lottie library not loaded!');
 } else {
-    console.log('Lottie library loaded successfully.');
+  console.log('Lottie loaded successfully');
 
-    // Create an overlay container
-    const overlay = document.createElement('div');
-    overlay.id = 'customLottieLoader';
-    overlay.style.cssText = `
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.7);
-        z-index: 9999;
-    `;
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'customLottieLoader';
+  
+  // Create animation container
+  const lottieContainer = document.createElement('div');
+  lottieContainer.style.cssText = `
+    width: 200px;
+    height: 200px;
+    position: relative;
+  `;
 
-    // Create a container for the Lottie animation
-    const lottieContainer = document.createElement('div');
-    lottieContainer.id = 'lottieContainer';
-    lottieContainer.style.cssText = `
-        width: 200px;
-        height: 200px;
-        position: relative;
-    `;
+  // Append elements
+  document.body.appendChild(overlay);
+  overlay.appendChild(lottieContainer);
 
-    document.body.appendChild(overlay);
-    document.body.appendChild(lottieContainer);
+  function initializePreloader() {
+    console.log('Starting custom preloader');
 
-    function hideFlutterLoaderAndShowLottie() {
-        console.log('Hiding Flutter loader and initializing Lottie animation.');
-
-        const flutterLoader = document.getElementById('loader');
-        if (flutterLoader) {
-            flutterLoader.style.display = 'none';
-            console.log('Flutter loader hidden.');
-        } else {
-            console.warn('Flutter loader element not found.');
-        }
-
-        const animation = lottie.loadAnimation({
-            container: lottieContainer,
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json',
-        });
-
-        // Correct Lottie event (if needed)
-        animation.addEventListener('DOMLoaded', () => {
-            console.log('Lottie animation loaded.');
-        });
+    // Hide Flutter's default loader
+    const flutterLoader = document.getElementById('loading');
+    if (flutterLoader) {
+      flutterLoader.style.display = 'none';
+      console.log('Hidden Flutter loader');
     }
 
-    // Ensure both arguments are passed
-    document.addEventListener('DOMContentLoaded', hideFlutterLoaderAndShowLottie);
+    // Load Lottie animation
+    const animation = lottie.loadAnimation({
+      container: lottieContainer,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json'
+    });
+
+    // Handle animation load
+    animation.addEventListener('data_ready', () => {
+      console.log('Lottie animation ready');
+      // Optional: Hide overlay after animation
+      // overlay.style.display = 'none';
+    });
+  }
+
+  // Safe initialization
+  if (document.readyState === 'complete') {
+    initializePreloader();
+  } else {
+    document.addEventListener('DOMContentLoaded', initializePreloader);
+  }
 }
