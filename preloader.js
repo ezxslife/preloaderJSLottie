@@ -19,52 +19,46 @@ if (typeof lottie === 'undefined') {
         width: 100%;
         height: 100%;
         background-color: rgba(255, 255, 255, 0.7);
-        z-index: 9999; /* Ensure it's on top */
+        z-index: 9999;
     `;
 
     // Create a container for the Lottie animation
     const lottieContainer = document.createElement('div');
     lottieContainer.id = 'lottieContainer';
     lottieContainer.style.cssText = `
-        width: 200px; /* Adjust size as needed */
+        width: 200px;
         height: 200px;
         position: relative;
     `;
 
-    // Append containers to the document body
     document.body.appendChild(overlay);
     document.body.appendChild(lottieContainer);
 
-    // Function to hide Flutter’s loader and show the Lottie animation
     function hideFlutterLoaderAndShowLottie() {
         console.log('Hiding Flutter loader and initializing Lottie animation.');
 
-        // Attempt to hide any existing Flutter loader
-        const flutterLoader = document.getElementById('loader'); // Adjust the ID if different
+        const flutterLoader = document.getElementById('loader');
         if (flutterLoader) {
             flutterLoader.style.display = 'none';
             console.log('Flutter loader hidden.');
         } else {
-            console.warn('Flutter loader element with ID "loader" not found.');
+            console.warn('Flutter loader element not found.');
         }
 
-        // Initialize the Lottie animation
         const animation = lottie.loadAnimation({
-            container: lottieContainer, // the container element
-            renderer: 'svg', // Use SVG rendering
-            loop: true, // Enable looping
-            autoplay: true, // Enable autoplay
-            path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json', // Your Lottie JSON URL
+            container: lottieContainer,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://cdn.lottielab.com/l/DCJm8qB85FqDuW.json',
         });
 
-        // Optionally, hide the overlay once the animation is loaded
+        // Correct Lottie event (if needed)
         animation.addEventListener('DOMLoaded', () => {
             console.log('Lottie animation loaded.');
-            // You can hide the overlay here if desired
-            // overlay.style.display = 'none';
         });
     }
 
-    // Wait for the DOM to fully load before initializing
+    // Ensure both arguments are passed
     document.addEventListener('DOMContentLoaded', hideFlutterLoaderAndShowLottie);
 }
