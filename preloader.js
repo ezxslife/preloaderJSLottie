@@ -10,6 +10,8 @@
   // Create overlay element for the preloader
   const overlay = document.createElement('div');
   overlay.id = 'customLottieLoader';
+  // Force dark background using inline style with !important
+  overlay.style.setProperty('background-color', 'rgba(0, 0, 0, 0.7)', 'important');
 
   // Create container for the Lottie animation
   const lottieContainer = document.createElement('div');
@@ -44,7 +46,6 @@
     });
 
     // Attach an event listener to know when the animation is loaded.
-    // Note: Depending on your Lottie version, the event may be "data_ready" or "DOMLoaded".
     if (typeof animation.addEventListener === 'function') {
       animation.addEventListener('DOMLoaded', () => {
         console.log('Lottie animation loaded (DOMLoaded event)');
